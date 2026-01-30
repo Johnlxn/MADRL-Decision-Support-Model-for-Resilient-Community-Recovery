@@ -1,0 +1,52 @@
+# -*- coding: utf-8 -*-
+# 训练配置：目标2（最小化恢复到 80% 的时间 / 对应论文 Eq.(21)）
+
+seed: 42
+
+data_dir: data/synth_campus
+
+# 目标：time80 对应论文 Eq.(21)
+objective: time80
+
+control_time: 100.0
+threshold_q: 0.8
+
+beta:
+  w: 0.55
+  p: 0.40
+  t: 0.05
+
+ru:
+  pipeline: 2
+  substation: 1
+  bridge: 1
+
+repair_time:
+  lognormal_sigma: 0.4
+  trunc_low_ratio: 0.1
+  trunc_high_ratio: 10.0
+
+train:
+  total_env_steps: 500000
+  num_envs: 8
+  rollout_horizon: 128
+  gamma: 0.999
+  gae_lambda: 0.95
+  ppo_clip: 0.2
+  actor_lr: 3.0e-4
+  critic_lr: 3.0e-4
+  update_epochs: 4
+  minibatch_size: 256
+  grad_norm_clip: 0.5
+
+model:
+  gnn_hidden: 32
+  gnn_out: 1
+  mlp_hidden: 128
+  mlp_layers: 5
+
+output_dir: outputs/time80
+
+eval:
+  every_iters: 20
+  episodes: 5

@@ -1,0 +1,422 @@
+main_substation_id: S0
+cooling_pipeline_id: P5
+cooling_well_id: W0
+well_power_substation:
+  W0: S2
+  W1: S6
+  W2: S6
+well_injection_pipeline:
+  W0: P35
+  W1: P13
+  W2: P49
+pipe_damage_meta:
+  P0:
+    pgv: 42.247881453954875
+    length_km: 0.18901474832729032
+    n_leak: 0
+    n_break: 0
+  P1:
+    pgv: 69.36569679624981
+    length_km: 0.11651212982409968
+    n_leak: 0
+    n_break: 0
+  P2:
+    pgv: 53.27508722095009
+    length_km: 0.05957258841562631
+    n_leak: 0
+    n_break: 0
+  P3:
+    pgv: 57.899863947323894
+    length_km: 0.16371316101280609
+    n_leak: 0
+    n_break: 0
+  P4:
+    pgv: 78.2418814636942
+    length_km: 0.18396816819832967
+    n_leak: 1
+    n_break: 0
+  P5:
+    pgv: 22.628225947233727
+    length_km: 0.07314342381013218
+    n_leak: 0
+    n_break: 0
+  P6:
+    pgv: 64.68572935446903
+    length_km: 0.19512645986513155
+    n_leak: 0
+    n_break: 0
+  P7:
+    pgv: 42.227582362092136
+    length_km: 0.12043337169137121
+    n_leak: 0
+    n_break: 0
+  P8:
+    pgv: 27.7952903201283
+    length_km: 0.12135573893389008
+    n_leak: 0
+    n_break: 0
+  P9:
+    pgv: 60.18883968095062
+    length_km: 0.11557278783084962
+    n_leak: 0
+    n_break: 0
+  P10:
+    pgv: 62.01590612013495
+    length_km: 0.09685499620730617
+    n_leak: 0
+    n_break: 0
+  P11:
+    pgv: 68.28586144980811
+    length_km: 0.10812175685452619
+    n_leak: 0
+    n_break: 0
+  P12:
+    pgv: 60.94973023849853
+    length_km: 0.07096287254139648
+    n_leak: 0
+    n_break: 0
+  P13:
+    pgv: 20.441736185060332
+    length_km: 0.16803865662532078
+    n_leak: 0
+    n_break: 0
+  P14:
+    pgv: 62.30992271758011
+    length_km: 0.16710935465329518
+    n_leak: 0
+    n_break: 0
+  P15:
+    pgv: 54.12447175717362
+    length_km: 0.07096954971914862
+    n_leak: 0
+    n_break: 0
+  P16:
+    pgv: 60.1041777074283
+    length_km: 0.12066443092146989
+    n_leak: 0
+    n_break: 0
+  P17:
+    pgv: 65.89993144496154
+    length_km: 0.14520774800008862
+    n_leak: 0
+    n_break: 0
+  P18:
+    pgv: 53.55242964472481
+    length_km: 0.09559251470939184
+    n_leak: 0
+    n_break: 0
+  P19:
+    pgv: 46.20304335394174
+    length_km: 0.08218770092292939
+    n_leak: 0
+    n_break: 0
+  P20:
+    pgv: 71.20418439608997
+    length_km: 0.08509092287980112
+    n_leak: 0
+    n_break: 0
+  P21:
+    pgv: 36.88303352131979
+    length_km: 0.09403906366500256
+    n_leak: 0
+    n_break: 0
+  P22:
+    pgv: 53.4219291404767
+    length_km: 0.16758473136596203
+    n_leak: 0
+    n_break: 0
+  P23:
+    pgv: 44.38321168640423
+    length_km: 0.17210305769990522
+    n_leak: 0
+    n_break: 0
+  P24:
+    pgv: 21.36272438803163
+    length_km: 0.06350717911634626
+    n_leak: 0
+    n_break: 0
+  P25:
+    pgv: 47.712633815083244
+    length_km: 0.07419076685504028
+    n_leak: 0
+    n_break: 0
+  P26:
+    pgv: 29.138726162790107
+    length_km: 0.15444805626166042
+    n_leak: 0
+    n_break: 0
+  P27:
+    pgv: 42.86127356578895
+    length_km: 0.09522681337218149
+    n_leak: 0
+    n_break: 0
+  P28:
+    pgv: 41.70875663320342
+    length_km: 0.06314748789741516
+    n_leak: 0
+    n_break: 0
+  P29:
+    pgv: 77.71385987297087
+    length_km: 0.1862871036061411
+    n_leak: 0
+    n_break: 0
+  P30:
+    pgv: 35.95219768757117
+    length_km: 0.19537645660215863
+    n_leak: 0
+    n_break: 0
+  P31:
+    pgv: 63.01341134953974
+    length_km: 0.11740422532156831
+    n_leak: 0
+    n_break: 0
+  P32:
+    pgv: 25.783457729209957
+    length_km: 0.18539035948157628
+    n_leak: 0
+    n_break: 0
+  P33:
+    pgv: 32.14180188771382
+    length_km: 0.09589349362259789
+    n_leak: 0
+    n_break: 0
+  P34:
+    pgv: 30.606366976353904
+    length_km: 0.17849214261385632
+    n_leak: 0
+    n_break: 0
+  P35:
+    pgv: 63.16777735705621
+    length_km: 0.11481395596626556
+    n_leak: 0
+    n_break: 0
+  P36:
+    pgv: 55.04587813476414
+    length_km: 0.14747699023322303
+    n_leak: 0
+    n_break: 0
+  P37:
+    pgv: 44.94844413023658
+    length_km: 0.056242126079283875
+    n_leak: 0
+    n_break: 0
+  P38:
+    pgv: 39.79167273996712
+    length_km: 0.07167862832990704
+    n_leak: 0
+    n_break: 0
+  P39:
+    pgv: 55.25867433066272
+    length_km: 0.07558894528053292
+    n_leak: 0
+    n_break: 0
+  P40:
+    pgv: 54.8636683820237
+    length_km: 0.10203047068022557
+    n_leak: 0
+    n_break: 0
+  P41:
+    pgv: 21.36823226178185
+    length_km: 0.19378388198621682
+    n_leak: 0
+    n_break: 0
+  P42:
+    pgv: 66.96411363501717
+    length_km: 0.06240949998836579
+    n_leak: 0
+    n_break: 0
+  P43:
+    pgv: 49.44241966127126
+    length_km: 0.19067396824624744
+    n_leak: 0
+    n_break: 0
+  P44:
+    pgv: 48.40936406341723
+    length_km: 0.09004634946378404
+    n_leak: 0
+    n_break: 0
+  P45:
+    pgv: 51.240344148292266
+    length_km: 0.11583671904575701
+    n_leak: 0
+    n_break: 0
+  P46:
+    pgv: 69.57751545166147
+    length_km: 0.18442411577596501
+    n_leak: 0
+    n_break: 0
+  P47:
+    pgv: 53.242168612342965
+    length_km: 0.06628636117031654
+    n_leak: 0
+    n_break: 0
+  P48:
+    pgv: 36.8740270303405
+    length_km: 0.14891339520378527
+    n_leak: 0
+    n_break: 0
+  P49:
+    pgv: 66.11884951505942
+    length_km: 0.06616114189338448
+    n_leak: 0
+    n_break: 0
+  P50:
+    pgv: 33.812839453692845
+    length_km: 0.05561188342642697
+    n_leak: 0
+    n_break: 0
+  P51:
+    pgv: 42.25533703174632
+    length_km: 0.174468461469862
+    n_leak: 0
+    n_break: 0
+  P52:
+    pgv: 39.02833356936292
+    length_km: 0.19293490926046175
+    n_leak: 0
+    n_break: 0
+  P53:
+    pgv: 50.903427753902875
+    length_km: 0.08839476358514042
+    n_leak: 0
+    n_break: 0
+  P54:
+    pgv: 29.87646905492109
+    length_km: 0.05673659290884935
+    n_leak: 0
+    n_break: 0
+  P55:
+    pgv: 79.54253384335021
+    length_km: 0.1837515899382371
+    n_leak: 1
+    n_break: 0
+  P56:
+    pgv: 51.13150162318694
+    length_km: 0.09738935777461896
+    n_leak: 0
+    n_break: 0
+  P57:
+    pgv: 59.69967579006566
+    length_km: 0.10604865933105652
+    n_leak: 0
+    n_break: 0
+  P58:
+    pgv: 64.80737668094156
+    length_km: 0.08936907738842971
+    n_leak: 0
+    n_break: 1
+  P59:
+    pgv: 69.86676032749438
+    length_km: 0.07299264749367411
+    n_leak: 0
+    n_break: 0
+  P60:
+    pgv: 55.96296749125061
+    length_km: 0.1811843061256197
+    n_leak: 0
+    n_break: 0
+  P61:
+    pgv: 38.619420374005685
+    length_km: 0.16661072573617663
+    n_leak: 0
+    n_break: 1
+  P62:
+    pgv: 20.836177262492093
+    length_km: 0.0844484044998283
+    n_leak: 0
+    n_break: 0
+  P63:
+    pgv: 60.65952041677145
+    length_km: 0.06827487569427967
+    n_leak: 0
+    n_break: 0
+  P64:
+    pgv: 61.655746138573186
+    length_km: 0.1371674913831354
+    n_leak: 0
+    n_break: 0
+  P65:
+    pgv: 68.24747157093577
+    length_km: 0.15731106944237028
+    n_leak: 0
+    n_break: 0
+  P66:
+    pgv: 27.863465093438794
+    length_km: 0.0685630705475517
+    n_leak: 0
+    n_break: 0
+  P67:
+    pgv: 43.85469162949644
+    length_km: 0.09514230376714097
+    n_leak: 0
+    n_break: 0
+  P68:
+    pgv: 59.77185276581495
+    length_km: 0.19334348855704553
+    n_leak: 0
+    n_break: 0
+  P69:
+    pgv: 75.48850575872163
+    length_km: 0.05372892370793845
+    n_leak: 0
+    n_break: 0
+  P70:
+    pgv: 58.038506700865106
+    length_km: 0.065884610562613
+    n_leak: 0
+    n_break: 0
+  P71:
+    pgv: 45.14685915897823
+    length_km: 0.1949347868214773
+    n_leak: 0
+    n_break: 0
+  P72:
+    pgv: 75.98139329601267
+    length_km: 0.17065413734194562
+    n_leak: 0
+    n_break: 0
+  P73:
+    pgv: 67.08580695513125
+    length_km: 0.05267551759654816
+    n_leak: 0
+    n_break: 0
+  P74:
+    pgv: 69.76571689296418
+    length_km: 0.1695225632487743
+    n_leak: 0
+    n_break: 0
+  P75:
+    pgv: 51.84617543594321
+    length_km: 0.14090237310500164
+    n_leak: 0
+    n_break: 0
+  P76:
+    pgv: 56.186429440323536
+    length_km: 0.11188573539105207
+    n_leak: 0
+    n_break: 0
+  P77:
+    pgv: 45.55292518241059
+    length_km: 0.14778965383699616
+    n_leak: 0
+    n_break: 0
+  P78:
+    pgv: 47.23381292457799
+    length_km: 0.08717593444270372
+    n_leak: 0
+    n_break: 0
+  P79:
+    pgv: 64.76085681460678
+    length_km: 0.17248531451358656
+    n_leak: 0
+    n_break: 0
+  P80:
+    pgv: 23.993531417310688
+    length_km: 0.13916504956346779
+    n_leak: 0
+    n_break: 0
+  P81:
+    pgv: 69.47985142738048
+    length_km: 0.09655020108861118
+    n_leak: 0
+    n_break: 0

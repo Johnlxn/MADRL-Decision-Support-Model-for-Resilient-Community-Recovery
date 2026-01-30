@@ -1,0 +1,59 @@
+# -*- coding: utf-8 -*-
+# 训练配置：目标1（最大化韧性 / 最小化 RL）
+
+seed: 42
+
+data_dir: data/synth_campus
+
+# 目标：resilience 对应论文 Eq.(20)
+objective: resilience
+
+# 环境参数
+control_time: 100.0   # TLC（论文案例设为 100 天）
+threshold_q: 0.8      # 目标2用，目标1不会用到
+
+beta:
+  w: 0.55
+  p: 0.40
+  t: 0.05
+
+# 修复资源（RU）数量，对应论文案例：1(TN桥) + 1(EPN变电站) + 2(WDN管线)
+ru:
+  pipeline: 2
+  substation: 1
+  bridge: 1
+
+# 维修时间分布参数（论文 2.4.1）
+repair_time:
+  lognormal_sigma: 0.4
+  trunc_low_ratio: 0.1
+  trunc_high_ratio: 10.0
+
+# 训练超参数（论文 Table 2）
+train:
+  total_env_steps: 500000
+  num_envs: 8
+  rollout_horizon: 128
+  gamma: 0.999
+  gae_lambda: 0.95
+  ppo_clip: 0.2
+  actor_lr: 3.0e-4
+  critic_lr: 3.0e-4
+  update_epochs: 4
+  minibatch_size: 256
+  grad_norm_clip: 0.5
+
+# 网络结构（论文 Table 2）
+model:
+  gnn_hidden: 32
+  gnn_out: 1
+  mlp_hidden: 128
+  mlp_layers: 5
+
+# 输出目录
+output_dir: outputs/resilience
+
+# 是否在训练过程中定期评估并保存最佳模型
+eval:
+  every_iters: 20
+  episodes: 5
