@@ -17,6 +17,16 @@ def build_baseline_policy(
     objective: str,
     cfg: Dict[str, Any] | None = None,
 ):
+    """Build a baseline policy from config.
+
+    Supported names:
+    - random
+    - importance
+    - rollout_sa
+
+    cfg may contain shared keys like seed/gamma, plus a nested rollout_sa
+    dict for rollout-specific hyper-parameters.
+    """
     cfg = cfg or {}
     name = str(name).lower()
 

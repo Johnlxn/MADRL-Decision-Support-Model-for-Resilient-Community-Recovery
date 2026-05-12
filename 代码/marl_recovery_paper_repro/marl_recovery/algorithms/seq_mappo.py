@@ -139,7 +139,7 @@ class SeqMAPPOTrainer:
                     # entropy bonus（可选）
                     ent = self.actors[agent_idx].entropy(node_features[mb], self.edges, masks[agent_idx][mb]).mean()
 
-                    guide_loss = torch.zeros((), dtype=obj.dtype, device=self.device)
+                    guide_loss_value = 0.0
                     if guide_actions is not None and guide_coef > 0.0:
                         guide_logp = self.actors[agent_idx].log_prob(
                             node_features[mb],
@@ -147,9 +147,9 @@ class SeqMAPPOTrainer:
                             masks[agent_idx][mb],
                             guide_actions[mb, agent_idx],
                         )
-                        guide_loss = -guide_logp.mean()
+                        guide_loss_value = -guide_logp.mean()
 
-                    loss = -obj + float(guide_coef) * guide_loss - self.entropy_coef * ent
+                    loss = -obj + float(guide_coef) * guide_loss_value - self.entropy_coef * ent
 
                     self.actor_opts[agent_idx].zero_grad()
                     loss.backward()
@@ -158,7 +158,7 @@ class SeqMAPPOTrainer:
 
                     actor_loss_total += float(loss.item())
                     entropy_total += float(ent.item())
-                    guide_loss_total += float(guide_loss.item())
+                    guide_loss_total += float(guide_loss_value if isinstance(guide_loss_value, float) else guide_loss_value.item())
 
                 # 用更新后的策略重算该 agent 的 logp（整批），供后续 agent 使用
                 with torch.no_grad():
