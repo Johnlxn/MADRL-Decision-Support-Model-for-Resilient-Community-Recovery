@@ -31,6 +31,7 @@ class RolloutBatch:
     action_masks: List[torch.Tensor]  # len=n_agents, each (B,action_dim_i)
     advantages: torch.Tensor  # (B,)
     returns: torch.Tensor  # (B,)
+    guide_actions: Optional[torch.Tensor] = None  # (B,n_agents)
 
 
 class SeqMAPPOTrainer:
@@ -62,12 +63,23 @@ class SeqMAPPOTrainer:
             self.actor_opts.append(torch.optim.Adam(actor.parameters(), lr=float(lr)))
         self.critic_opt = torch.optim.Adam(self.critic.parameters(), lr=float(critic_lr))
 
+    def set_entropy_coef(self, entropy_coef: float) -> None:
+        self.entropy_coef = float(entropy_coef)
+
+    def set_learning_rates(self, actor_lr: float, critic_lr: float) -> None:
+        for opt in self.actor_opts:
+            for group in opt.param_groups:
+                group["lr"] = float(actor_lr)
+        for group in self.critic_opt.param_groups:
+            group["lr"] = float(critic_lr)
+
     def update(
         self,
         batch: RolloutBatch,
         update_epochs: int,
         minibatch_size: int,
         normalize_adv: bool = True,
+        guide_coef: float = 0.0,
     ) -> Dict[str, float]:
         """执行一次 PPO 更新。"""
         B = batch.node_features.shape[0]
@@ -79,6 +91,7 @@ class SeqMAPPOTrainer:
         advantages = batch.advantages.to(self.device)
         returns = batch.returns.to(self.device)
         masks = [m.to(self.device) for m in batch.action_masks]
+        guide_actions = batch.guide_actions.to(self.device) if batch.guide_actions is not None else None
 
         if normalize_adv:
             adv_mean = advantages.mean()
@@ -88,6 +101,7 @@ class SeqMAPPOTrainer:
         # 先更新 actor（论文 Algorithm 1 的顺序：先 actor 后 critic）
         actor_loss_total = 0.0
         entropy_total = 0.0
+        guide_loss_total = 0.0
 
         for _ in range(int(update_epochs)):
             perm = self.rng.permutation(n_agents)
@@ -125,7 +139,17 @@ class SeqMAPPOTrainer:
                     # entropy bonus（可选）
                     ent = self.actors[agent_idx].entropy(node_features[mb], self.edges, masks[agent_idx][mb]).mean()
 
-                    loss = -obj - self.entropy_coef * ent
+                    guide_loss = torch.zeros((), dtype=obj.dtype, device=self.device)
+                    if guide_actions is not None and guide_coef > 0.0:
+                        guide_logp = self.actors[agent_idx].log_prob(
+                            node_features[mb],
+                            self.edges,
+                            masks[agent_idx][mb],
+                            guide_actions[mb, agent_idx],
+                        )
+                        guide_loss = -guide_logp.mean()
+
+                    loss = -obj + float(guide_coef) * guide_loss - self.entropy_coef * ent
 
                     self.actor_opts[agent_idx].zero_grad()
                     loss.backward()
@@ -134,6 +158,7 @@ class SeqMAPPOTrainer:
 
                     actor_loss_total += float(loss.item())
                     entropy_total += float(ent.item())
+                    guide_loss_total += float(guide_loss.item())
 
                 # 用更新后的策略重算该 agent 的 logp（整批），供后续 agent 使用
                 with torch.no_grad():
@@ -168,5 +193,6 @@ class SeqMAPPOTrainer:
             "actor_loss": actor_loss_total / max(1e-9, denom * n_agents),
             "critic_loss": critic_loss_total / max(1e-9, denom),
             "entropy": entropy_total / max(1e-9, denom * n_agents),
+            "guide_loss": guide_loss_total / max(1e-9, denom * n_agents),
         }
         return stats

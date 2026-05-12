@@ -39,6 +39,19 @@ train:
   minibatch_size: 256
   grad_norm_clip: 0.5
 
+algorithm:
+  mode: seq_mappo
+  baseline_policy: importance
+  normalize_advantage: true
+  entropy_coef_start: 0.0
+  entropy_coef_end: 0.0
+  actor_lr_end: 3.0e-4
+  critic_lr_end: 3.0e-4
+  guide:
+    imitation_coef_start: 0.0
+    imitation_coef_end: 0.0
+    handoff_fraction: 0.5
+
 model:
   gnn_hidden: 32
   gnn_out: 1

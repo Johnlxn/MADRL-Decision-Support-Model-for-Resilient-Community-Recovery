@@ -43,15 +43,25 @@ python scripts/generate_synthetic_campus.py --out data/synth_campus --seed 42
 python scripts/train.py --config configs/train_resilience.yaml
 ```
 
-### 2.3 评估（输出恢复曲线与指标）
+### 2.3 启发式引导混合训练（Heuristic-Guided Seq-MAPPO）
 
 ```bash
-python scripts/evaluate.py --config configs/train_resilience.yaml --ckpt outputs/resilience/best.pt
+python scripts/train.py --config configs/train_resilience_guided.yaml
+```
+
+### 2.4 评估（输出恢复曲线与指标）
+
+```bash
+python scripts/evaluate.py --config configs/train_resilience.yaml --ckpt outputs/resilience/checkpoints/best.pth
 ```
 
 你会在 `outputs/...` 下看到：
-- `curve_Q.png`：社区 Q(t) 恢复曲线
+- `Q_curve.png`：社区 Q(t) 恢复曲线
 - `metrics.json`：RL、T80、最终 Q 等
+
+### 2.5 仅运行启发式 baseline
+
+将配置中的 `algorithm.mode` 设为 `heuristic_only`，并指定 `algorithm.baseline_policy`（如 `importance` / `random` / `rollout_sa`），即可直接输出 baseline 指标而不训练神经网络。
 
 ---
 
@@ -76,7 +86,12 @@ python scripts/evaluate.py --config configs/train_resilience.yaml --ckpt outputs
 
 ## 5. 复现实验参数（对应论文 Table 2）
 
-默认配置已提供：
+默认配置已提供，并新增 `algorithm` 段用于切换：
+- `seq_mappo`：纯 PPO
+- `heuristic_guided`：importance-policy 引导的 Seq-MAPPO
+- `heuristic_only`：纯启发式 baseline
+
+训练超参数默认值：
 - γ=0.999
 - λ=0.95
 - ϵ=0.2
@@ -85,4 +100,3 @@ python scripts/evaluate.py --config configs/train_resilience.yaml --ckpt outputs
 - MLP：5 层，每层 128
 
 你可以在 `configs/*.yaml` 中修改。
-

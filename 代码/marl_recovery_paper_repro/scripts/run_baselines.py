@@ -27,9 +27,7 @@ import numpy as np
 from marl_recovery.data.loader import load_data_bundle
 from marl_recovery.env.recovery_env import EnvConfig, RecoveryEnv
 from marl_recovery.env.resilience import compute_Q, resilience_loss
-from marl_recovery.baselines.random_policy import RandomPolicy
-from marl_recovery.baselines.importance_policy import ImportancePolicy
-from marl_recovery.baselines.rollout_sa import RolloutSAConfig, RolloutSAPolicy
+from marl_recovery.baselines.factory import build_baseline_policy
 from marl_recovery.utils.config import ensure_dir, load_yaml
 from marl_recovery.utils.io import save_json
 
@@ -99,32 +97,40 @@ def main() -> None:
 
     episodes = int(cfg.get("eval", {}).get("episodes", 20))
 
+    baseline_cfg = {"gamma": float(cfg.get("train", {}).get("gamma", 0.999))}
+
     # Random
     env = RecoveryEnv(bundle=bundle, ru=ru, cfg=env_cfg)
-    rand = RandomPolicy(seed=0)
+    rand = build_baseline_policy(name="random", bundle=bundle, objective=objective, cfg={"seed": 0, **baseline_cfg})
     m_rand = run_policy(env, rand, episodes=episodes, control_time=control_time, threshold_q=threshold_q)
     save_json(os.path.join(args.out, "random.json"), m_rand)
     print("[Random]", m_rand)
 
     # Importance-based
     env = RecoveryEnv(bundle=bundle, ru=ru, cfg=env_cfg)
-    imp = ImportancePolicy(bundle=bundle, objective=objective)
+    imp = build_baseline_policy(name="importance", bundle=bundle, objective=objective, cfg=baseline_cfg)
     m_imp = run_policy(env, imp, episodes=episodes, control_time=control_time, threshold_q=threshold_q)
     save_json(os.path.join(args.out, "importance.json"), m_imp)
     print("[Importance]", m_imp)
 
     # Rollout-SA
     env = RecoveryEnv(bundle=bundle, ru=ru, cfg=env_cfg)
-    sa_cfg = RolloutSAConfig(
-        gamma=float(cfg.get("train", {}).get("gamma", 0.999)),
-        n_mc=8,
-        rollout_horizon=15,
-        sa_iters=30,
-        temp_start=1.0,
-        temp_end=0.05,
-        seed=0,
+    rsa = build_baseline_policy(
+        name="rollout_sa",
+        bundle=bundle,
+        objective=objective,
+        cfg={
+            **baseline_cfg,
+            "rollout_sa": {
+                "n_mc": 8,
+                "rollout_horizon": 15,
+                "sa_iters": 30,
+                "temp_start": 1.0,
+                "temp_end": 0.05,
+                "seed": 0,
+            },
+        },
     )
-    rsa = RolloutSAPolicy(bundle=bundle, objective=objective, cfg=sa_cfg)
     m_rsa = run_policy(env, rsa, episodes=max(1, episodes // 4), control_time=control_time, threshold_q=threshold_q)
     save_json(os.path.join(args.out, "rollout_sa.json"), m_rsa)
     print("[Rollout-SA]", m_rsa)
