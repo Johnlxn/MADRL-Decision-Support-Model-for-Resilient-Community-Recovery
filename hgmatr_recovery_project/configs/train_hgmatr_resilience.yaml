@@ -1,0 +1,61 @@
+
+seed: 7
+data:
+  data_dir: data/synth_campus
+output:
+  out_dir: outputs/hgmatr_resilience
+env:
+  objective: resilience
+  control_time: 100.0
+  threshold_q: 0.8
+repair_time:
+  lognormal_sigma: 0.4
+  trunc_low_ratio: 0.1
+  trunc_high_ratio: 10.0
+ru:
+  pipeline: 2
+  substation: 1
+  bridge: 1
+model:
+  hgt_hidden: 64
+  hgt_out: 64
+  hgt_heads: 4
+  hgt_layers: 2
+  hgt_dropout: 0.10
+  hgt_attn_dropout: 0.00
+  hgt_readout: attention
+  memory_dim: 128
+  action_embed_dim: 32
+  agent_type_embed_dim: 24
+  model_dim: 128
+  decoder_heads: 4
+  decoder_layers: 2
+  decoder_ffn_dim: 256
+  decoder_dropout: 0.10
+  decoder_activation: gelu
+  decoder_norm_first: false
+  policy_hidden: 128
+  value_hidden: 128
+  aux_hidden: 128
+  time_scale: 100.0
+train:
+  total_env_steps: 200000
+  num_envs: 8
+  rollout_horizon: 128
+  lr: 3.0e-4
+  ppo_clip: 0.2
+  gamma: 0.999
+  gae_lambda: 0.95
+  update_epochs: 4
+  env_minibatch_size: 4
+  value_coef: 0.5
+  aux_coef: 0.1
+  entropy_coef: 0.01
+  grad_norm_clip: 0.5
+  alpha_start: 0.6
+  alpha_end: 0.3
+  print_every: 1
+  save_every: 50
+eval:
+  every_iters: 20
+  episodes: 5

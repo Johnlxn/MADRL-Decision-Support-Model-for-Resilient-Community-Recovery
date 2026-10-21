@@ -1,0 +1,1 @@
+[HGMAT-R] OK | device=cpu | actions=[[59, 59, 10, 2]] | value_res=0.0451 | value_t80=-0.1076 | reward=-0.4387 | next_time=0.4618 | joint_logp_shape=(1, 1)

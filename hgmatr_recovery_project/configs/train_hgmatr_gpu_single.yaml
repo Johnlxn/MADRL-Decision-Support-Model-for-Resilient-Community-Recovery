@@ -1,0 +1,61 @@
+
+seed: 7
+data:
+  data_dir: data/synth_campus
+output:
+  out_dir: outputs/hgmatr_gpu_single
+env:
+  objective: mixed
+  control_time: 80.0
+  threshold_q: 0.8
+repair_time:
+  lognormal_sigma: 0.4
+  trunc_low_ratio: 0.1
+  trunc_high_ratio: 10.0
+ru:
+  pipeline: 2
+  substation: 1
+  bridge: 1
+model:
+  hgt_hidden: 32
+  hgt_out: 32
+  hgt_heads: 4
+  hgt_layers: 2
+  hgt_dropout: 0.10
+  hgt_attn_dropout: 0.00
+  hgt_readout: attention
+  memory_dim: 64
+  action_embed_dim: 16
+  agent_type_embed_dim: 16
+  model_dim: 64
+  decoder_heads: 4
+  decoder_layers: 2
+  decoder_ffn_dim: 128
+  decoder_dropout: 0.10
+  decoder_activation: gelu
+  decoder_norm_first: false
+  policy_hidden: 64
+  value_hidden: 64
+  aux_hidden: 64
+  time_scale: 80.0
+train:
+  total_env_steps: 50000
+  num_envs: 4
+  rollout_horizon: 32
+  lr: 3.0e-4
+  ppo_clip: 0.2
+  gamma: 0.995
+  gae_lambda: 0.95
+  update_epochs: 2
+  env_minibatch_size: 2
+  value_coef: 0.5
+  aux_coef: 0.1
+  entropy_coef: 0.01
+  grad_norm_clip: 0.5
+  alpha_start: 0.6
+  alpha_end: 0.3
+  print_every: 1
+  save_every: 25
+eval:
+  every_iters: 10
+  episodes: 3
